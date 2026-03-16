@@ -1,0 +1,10 @@
+{
+  "classes": [
+    "limestone",
+    "sandstone",
+    "shale"
+  ],
+  "best_val_accuracy": 98.48942598187311,
+  "image_size": 224,
+  "model_architecture": "resnet18"
+}
