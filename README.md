@@ -52,8 +52,19 @@ python train.py
 Скопируй токен (например: 123456789:ABC...).
 
 ## 🚀 4. Запуск
+
+Пропиши токен в переменные окружения
 ```bash
 export BOT_TOKEN="твой_токен_здесь"
+```
+
+Либо вставь в строчке 20 файла bot.py вместо YOUR TOKEN
+```bash
+TOKEN = os.getenv("BOT_TOKEN", "YOUR TOKEN")
+```
+
+Запускай!
+```bash
 python bot.py
 ```
 
