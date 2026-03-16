@@ -24,14 +24,18 @@ dataset/
 
 ## 🧠 2. Обучение нейросети
 
-Установи зависимости! 
+Создай и активируй виртуальное окружение:
+```
+python -m venv venv
+source venv/bin/activate
+```
 
+Установи зависимости! 
 ```
 pip install -r requirements.txt
 ```
 
 Запусти обучение
-
 ```
 python train.py
 ```
