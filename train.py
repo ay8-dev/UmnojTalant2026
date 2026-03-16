@@ -27,7 +27,6 @@ CLASSES = ["limestone", "sandstone", "shale"]
 
 
 def get_data_transforms():
-    """Определяем аугментации и нормализацию"""
     train_transform = transforms.Compose([
         transforms.Resize((IMAGE_SIZE, IMAGE_SIZE)),
         transforms.RandomHorizontalFlip(p=0.5),
@@ -49,18 +48,14 @@ def get_data_transforms():
 
 
 def create_model(num_classes=3):
-    """Создаем модель на базе ResNet18"""
     model = models.resnet18(weights=ResNet18_Weights.IMAGENET1K_V1)
     
-    # Замораживаем все слои кроме последнего блока
     for param in model.parameters():
         param.requires_grad = False
     
-    # Размораживаем layer4
     for param in model.layer4.parameters():
         param.requires_grad = True
     
-    # Заменяем классификатор
     model.fc = nn.Sequential(
         nn.Dropout(0.5),
         nn.Linear(model.fc.in_features, 256),
@@ -77,7 +72,6 @@ def train_model():
     print(f"Используется устройство: {DEVICE}")
     print(f"Классы: {CLASSES}")
     
-    # Создаем директорию для модели
     Path("model").mkdir(exist_ok=True)
     
     # Загружаем данные

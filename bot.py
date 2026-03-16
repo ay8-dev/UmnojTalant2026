@@ -164,24 +164,19 @@ async def info_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def handle_photo(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """Обработка входящих фотографий"""
     try:
-        # Отправляем сообщение о начале обработки
         processing_msg = await update.message.reply_text(
             "🔍 Анализирую изображение..."
         )
         
-        # Получаем фото с наилучшим качеством
         photo = update.message.photo[-1]
         photo_file = await context.bot.get_file(photo.file_id)
-        
-        # Загружаем изображение в память
+
         photo_bytes = await photo_file.download_as_bytearray()
         image = Image.open(io.BytesIO(photo_bytes)).convert('RGB')
         
-        # Классификация
         result = classifier.predict(image)
         top = result['top_prediction']
         
-        # Формируем ответ
         confidence_emoji = "🟢" if top['probability'] > 80 else "🟡" if top['probability'] > 50 else "🔴"
         
         response = (
@@ -192,12 +187,10 @@ async def handle_photo(update: Update, context: ContextTypes.DEFAULT_TYPE):
             f"*Другие варианты:*\n"
         )
         
-        # Добавляем остальные предсказания
         for pred in result['all_predictions'][1:]:
             bar = "█" * int(pred['probability'] / 10) + "░" * (10 - int(pred['probability'] / 10))
             response += f"• {pred['class_ru']}: {bar} {pred['probability']:.1f}%\n"
         
-        # Удаляем сообщение о обработке и отправляем результат
         await processing_msg.delete()
         await update.message.reply_text(response, parse_mode='Markdown')
         
