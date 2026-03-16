@@ -17,7 +17,7 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # Конфигурация
-TOKEN = os.getenv("BOT_TOKEN", "8702367143:AAEaKMsA13xzzNpNCUOzGosd-xJ_eyjxvQM")
+TOKEN = os.getenv("BOT_TOKEN", "YOUR TOKEN")
 MODEL_PATH = "model/rock_classifier.pth"
 METADATA_PATH = "model/metadata.json"
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
